@@ -1,0 +1,47 @@
+class SpookTrainTicketSales:
+    def __init__(self):
+        self.capacity = 5
+        self.tickets_sold = 0
+
+    def sell_ticket(self):
+        if self.tickets_sold >= self.capacity:
+            print("Sorry, the SpookTrain is full. No more tickets can be sold.")
+            return False
+
+        age = int(input("Enter the age of the ticket holder: "))
+        if age < 12:
+            print("Sorry, children under 12 are not allowed to ride the SpookTrain.")
+            return False
+
+        if 12 <= age <= 17:
+            school_id = input("Does the minor have a school ID card? (Y/N): ").upper()
+            if school_id != 'Y':
+                print("Minors between 12 and 17 must present their school ID card.")
+                return False
+
+            rides_taken = int(input("Enter the number of previous rides on SpookTrain: "))
+            if rides_taken >= 3:
+                print("This is the minor's final ride. Warning: You could be sick!")
+            elif rides_taken > 0:
+                print(f"This is the minor's {rides_taken+1} ride on SpookTrain.")
+        elif age > 17:
+            print("Adult ticket sold.")
+        else:
+            print("Invalid age entered.")
+            return False
+
+        self.tickets_sold += 1
+        print("Ticket sold successfully!")
+        return True
+
+
+if __name__ == "__main__":
+    spook_train = SpookTrainTicketSales()
+
+    while True:
+        sell = input("Do you want to sell a ticket? (Y/N): ").upper()
+        if sell != 'Y':
+            break
+
+        if not spook_train.sell_ticket():
+            print("Ticket sale unsuccessful. Please try again.")
